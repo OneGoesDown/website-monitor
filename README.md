@@ -231,9 +231,9 @@ The same command runs automatically on every push via
 
 ## Possible next steps
 
-- Email/Slack/webhook alerts on status change
-- Uptime history graphs (not just current %) in the app
-- Persisting history to SQLite instead of a flat log file
+- Discord/Slack/webhook alerts on status change
+- Uptime history graphs (not just current %) in the app showing uptime over time. More useful for spotting patterns (e.g., "this site always goes down every Monday morning") instead of just one flat number.
+- Persisting history to SQLite instead of a flat log file. This would also make the update history graphs possible.
 - Docker packaging for the headless mode
 - System tray icon so the app can run minimized
 
