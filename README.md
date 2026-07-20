@@ -1,6 +1,6 @@
 # Website Monitor
 
-[![Tests](https://github.com/<your-username>/website-monitor/actions/workflows/tests.yml/badge.svg)](https://github.com/<your-username>/website-monitor/actions/workflows/tests.yml)
+[![Tests](https://github.com/OneGoesDown/website-monitor/actions/workflows/tests.yml/badge.svg)](https://github.com/OneGoesDown/website-monitor/actions/workflows/tests.yml)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -11,13 +11,7 @@ uptime percentage.
 
 ## Screenshots
 
-<!--
-  Add a screenshot once you've run the app, e.g.:
-    1. Create a docs/ folder in the project root
-    2. Save a screenshot there as docs/screenshot.png
-    3. Replace this comment with:
-       ![Website Monitor dashboard](docs/screenshot.png)
--->
+![Website Monitor dashboard](docs/screenshot.png)
 
 ## Features
 
@@ -79,7 +73,7 @@ WebsiteMonitor/
 ## Setup
 
 ```bash
-git clone https://github.com/<your-username>/website-monitor.git
+git clone https://github.com/OneGoesDown/website-monitor.git
 cd website-monitor
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
@@ -210,21 +204,21 @@ waiting for a real outage. It briefly shows **Sending...**, then
 All settings live in `config.py` and can be overridden with
 environment variables of the same name:
 
-| Variable           | Default             | Description                                  |
-|--------------------|----------------------|-----------------------------------------------|
-| `CHECK_INTERVAL`   | `30`                 | Seconds between check cycles                 |
-| `REQUEST_TIMEOUT`  | `5`                  | Seconds before a request is considered timed out |
-| `WEBSITES_FILE`    | `websites.txt`       | Path to the list of URLs                     |
-| `LOG_FILE`         | `logs/monitor.log`   | Path to the log file                         |
-| `LOG_MAX_BYTES`    | `1000000`            | Log file size (bytes) before rotation        |
-| `LOG_BACKUP_COUNT` | `3`                  | Number of rotated log files to keep          |
-| `OK_STATUS_MAX`    | `400`                | HTTP status codes below this count as online |
-| `STATUS_FILE`      | `status.json`        | Snapshot file written by `main.py`'s headless mode |
-| `GUI_REFRESH_MS`   | `2000`               | How often (ms) `app.py` refreshes its display |
-| `GMAIL_ADDRESS`    | *(none)*             | Gmail address alerts are sent from — set in `.env`, not here |
-| `GMAIL_APP_PASSWORD` | *(none)*           | Gmail app password — set in `.env`, not here |
-| `ALERT_EMAIL_TO`   | same as `GMAIL_ADDRESS` | Where alert emails are sent |
-| `ALERT_FAILURE_THRESHOLD` | `2`           | Consecutive failed checks before a DOWN alert fires |
+| Variable                  | Default                 | Description                                                  |
+|---------------------------|-------------------------|--------------------------------------------------------------|
+| `CHECK_INTERVAL`          | `30`                    | Seconds between check cycles                                 |
+| `REQUEST_TIMEOUT`         | `5`                     | Seconds before a request is considered timed out             |
+| `WEBSITES_FILE`           | `websites.txt`          | Path to the list of URLs                                     |
+| `LOG_FILE`                | `logs/monitor.log`      | Path to the log file                                         |
+| `LOG_MAX_BYTES`           | `1000000`               | Log file size (bytes) before rotation                        |
+| `LOG_BACKUP_COUNT`        | `3`                     | Number of rotated log files to keep                          |
+| `OK_STATUS_MAX`           | `400`                   | HTTP status codes below this count as online                 |
+| `STATUS_FILE`             | `status.json`           | Snapshot file written by `main.py`'s headless mode           |
+| `GUI_REFRESH_MS`          | `2000`                  | How often (ms) `app.py` refreshes its display                |
+| `GMAIL_ADDRESS`           | *(none)*                | Gmail address alerts are sent from — set in `.env`, not here |
+| `GMAIL_APP_PASSWORD`      | *(none)*                | Gmail app password — set in `.env`, not here                 |
+| `ALERT_EMAIL_TO`          | same as `GMAIL_ADDRESS` | Where alert emails are sent                                  |
+| `ALERT_FAILURE_THRESHOLD` | `2`                     | Consecutive failed checks before a DOWN alert fires          |
 
 Relative paths (all the defaults above) are resolved next to the
 running app, not the current working directory — see "Building a
@@ -249,7 +243,7 @@ The same command runs automatically on every push via
 
 ## Possible next steps
 
-- Email/Slack/webhook alerts on status change
+- Discord/Slack/webhook alerts on status change
 - Uptime history graphs (not just current %) in the app
 - Persisting history to SQLite instead of a flat log file
 - Docker packaging for the headless mode
