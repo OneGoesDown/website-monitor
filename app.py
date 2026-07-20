@@ -23,6 +23,12 @@ from monitor.engine import MonitorThread
 from monitor.logger_setup import setup_logging
 from monitor import notifier
 
+try:
+    from tray import TrayIcon
+    TRAY_AVAILABLE = True
+except ImportError:
+    TRAY_AVAILABLE = False
+
 logger = setup_logging()
 
 
@@ -76,6 +82,22 @@ class App(tk.Tk):
         self._load_sites()
 
         self.monitor = MonitorThread(self.sites, logger, lock=self._lock, notify=_notify)
+
+        self.tray: Optional["TrayIcon"] = None
+        self._shown_tray_hint = False
+        if TRAY_AVAILABLE:
+            try:
+                candidate = TrayIcon(
+                    on_show=lambda: self.after(0, self._show_from_tray),
+                    on_quit=lambda: self.after(0, self._quit),
+                )
+                candidate.start()
+                self.tray = candidate
+            except Exception as exc:
+                logger.warning(
+                    "System tray icon unavailable (%s); the window's X button "
+                    "will quit the app normally instead of minimizing.", exc,
+                )
 
         self._build_header()
         self._build_table()
@@ -208,6 +230,29 @@ class App(tk.Tk):
             self.start_monitoring()
 
     def _on_close(self) -> None:
+        if self.tray is not None:
+            self._hide_to_tray()
+        else:
+            self._quit()
+
+    def _hide_to_tray(self) -> None:
+        self.withdraw()  # removes the window (and its taskbar entry) entirely,
+                          # unlike iconify(), which would just minimize it
+        if not self._shown_tray_hint:
+            self._shown_tray_hint = True
+            self.tray.notify(
+                "Still monitoring in the background. "
+                "Right-click the tray icon to reopen or quit."
+            )
+
+    def _show_from_tray(self) -> None:
+        self.deiconify()
+        self.lift()
+        self.focus_force()
+
+    def _quit(self) -> None:
+        if self.tray is not None:
+            self.tray.stop()
         self.monitor.stop()
         self.destroy()
 

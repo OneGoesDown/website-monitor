@@ -2,4 +2,4 @@
 https://www.google.com
 https://github.com
 https://www.python.org
-https://httpstat.us
+https://httpbin.org
